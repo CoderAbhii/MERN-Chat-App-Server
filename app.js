@@ -1,9 +1,12 @@
 import express from 'express';
-import userRoute from './routes/users.js'
+import userRoute from './routes/users.route.js'
 import { connectDB } from './database/db.js';
 import 'dotenv/config'
 
 const app = express();
+
+app.use(express.json());
+app.use(express.urlencoded());
 
 connectDB(app);
 
