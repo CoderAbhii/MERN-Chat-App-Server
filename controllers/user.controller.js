@@ -22,22 +22,23 @@ const newUserController = async (req, res) => {
     sendToken(res, user, 201, 'User created successfully');
 }
 
-const loginUserController = async (req, res) => {
 
+//@DESC - Login user and send successfull login response and save token in cookie
+const loginUserController = TryCatch(async (req, res, next) => {
     const { username, password } = req.body;
     const user = await User.findOne({ username }).select('+password');
 
-    if (!user) return res.status(400).json({
-        message: 'Invalid credentials'
-    });
+    if (!user) return next(new Error('Invalid credentials'));
 
     const isMatch = await compare(password, user.password);
 
-    if (isMatch) return res.status(400).json({
-        message: 'Invalid credentials'
-    });
+    if (!isMatch) return next(new Error('Invalid credentials'));
 
     sendToken(res, user, 200, `Login successfully, ${user.name}`);
+})
+
+const getMyProfile = async (req, res) => {
+
 }
 
-export { newUserController, loginUserController }
+export { newUserController, loginUserController, getMyProfile }
