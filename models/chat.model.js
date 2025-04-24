@@ -1,6 +1,5 @@
 import mongoose, { Schema, Types, model } from "mongoose";
 
-
 const schema = new Schema({
     name: {
         type: String,
@@ -8,7 +7,7 @@ const schema = new Schema({
     },
     groupChat: {
         type: Boolean,
-        default: fasle,
+        default: false,
     },
     creator: {
         type: Types.ObjectId,

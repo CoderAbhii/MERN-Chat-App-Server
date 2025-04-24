@@ -16,4 +16,8 @@ const sendToken = (res, user, code, message) => {
     })
 };
 
-export { sendToken };
+const emitEvent = (req, event, users, data) => {
+    console.log('Emmiting Event', event)
+}
+
+export { sendToken, cookieOptions, emitEvent };
