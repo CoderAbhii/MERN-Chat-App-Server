@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import userRoute from './routes/users.route.js';
 import chatRoute from './routes/chat.route.js';
 import { createUser } from './seeders/user.seed.js';
+import { ErrorHandler } from './utils/utility.js';
 
 const app = express();
 
@@ -24,6 +25,10 @@ app.use('/api/v1/chat', chatRoute);
 
 app.get('/', (req, res) => {
     res.json({ message: 'Hello from chat app' });
+});
+
+app.use(async (req, res, next) => {
+    next(new ErrorHandler("Method not found", 404));
 });
 
 app.use(errorMiddleware);
